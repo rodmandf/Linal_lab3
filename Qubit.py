@@ -11,7 +11,12 @@ class Qubit:
 
     def apply_gate(self, gate):
         self.state = gate @ self.state
-
+        
+    def Zero():
+        return Qubit(1, 0)
+    def One():
+        return Qubit(0, 1)
+    
     def __str__(self):
         return f"Qubit state: {self.state[0]:.2f}|0⟩ + {self.state[1]:.2f}|1⟩"
 
@@ -46,22 +51,3 @@ CNOT_GATE = np.array([
     [0, 0, 0, 1],
     [0, 0, 1, 0]
 ], dtype=complex)
-
-if __name__ == "__main__":
-    print("Однокубитные гейты:")
-    q = Qubit()
-    print("Начальное состояние:", q)
-    q.apply_gate(X_GATE)
-    print("После X-гейта:", q)
-    q.apply_gate(Y_GATE)
-    print("После Y-гейта:", q)
-    q.apply_gate(Z_GATE)
-    print("После Z-гейта:", q)
-
-    print("\nЗапутывание через CNOT:")
-    q1 = Qubit(alpha=1/math.sqrt(2), beta=1/math.sqrt(2))
-    q2 = Qubit(1, 0)
-    entangled = TwoQubit(q1, q2)
-    print("До CNOT:", entangled)
-    entangled.apply_gate(CNOT_GATE)
-    print("После CNOT:", entangled)
